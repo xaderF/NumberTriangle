@@ -122,6 +122,15 @@ public class NumberTriangle {
 
 
         // TODO define any variables that you want to use to store things
+        String[] allValues = new String[100];
+        int rowCount = 0;
+        String line;
+        while ((line = br.readLine()) != null) {
+            if (!line.trim().isEmpty()) {
+                allValues[rowCount++] = line.trim();
+            }
+        }
+        br.close();
 
         // will need to return the top of the NumberTriangle,
         // so might want a variable for that.
@@ -134,6 +143,7 @@ public class NumberTriangle {
             System.out.println(line);
 
             // TODO process the line
+
 
             //read the next line
             line = br.readLine();
