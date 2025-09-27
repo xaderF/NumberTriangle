@@ -125,6 +125,8 @@ public class NumberTriangle {
 
         // TODO define any variables that you want to use to store things
 
+        List<List<Integer>> allValues = new ArrayList<>();
+
         // will need to return the top of the NumberTriangle,
         // so might want a variable for that.
         NumberTriangle top = null;
@@ -137,10 +139,34 @@ public class NumberTriangle {
 
             // TODO process the line
 
+            String[] textParts = line.split(" ");
+            List<Integer> rows = new ArrayList<>();
+            for (String part : textParts) {
+                rows.add(Integer.parseInt(part));
+            }
+            allValues.add(rows);
+
             //read the next line
             line = br.readLine();
         }
         br.close();
+        List<NumberTriangle> previous = new ArrayList<>();
+        for (int v : allValues.get(allValues.size() - 1)) {
+            previous.add(new NumberTriangle(v));
+        }
+
+        for (int row = allValues.size() - 2; row >= 0; row--) {
+            List<NumberTriangle> curr = new ArrayList<>();
+            for (int col = 0; col < allValues.get(row).size(); col++) {
+                NumberTriangle node = new NumberTriangle(allValues.get(row).get(col));
+                node.setLeft(previous.get(col));
+                node.setRight(previous.get(col + 1));
+                curr.add(node);
+            }
+            previous = curr;
+            top = curr.get(0);
+        }
+
         return top;
     }
 
